@@ -21,8 +21,7 @@ class Article(db.Model):
 def __repr__(self):
     return '<Article %r>' % self.id
 
-
-#db.create_all()
+db.create_all()
 
 
 @app.route('/')
@@ -73,4 +72,10 @@ def create_article():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    import os
+    HOST = os.environ.get('SERVEN_HOST','localhost')
+    try:
+        PORT = int(os.environ.get('SERVER_PORT','5555'))
+    except ValueError:
+        PORT = 5555
+    app.run(HOST,PORT)
